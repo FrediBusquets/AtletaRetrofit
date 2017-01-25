@@ -26,11 +26,6 @@ public class RestSynchronous {
             System.out.println("Status code: " + responseAllAtleta.code() +
                     "Message error: " + responseAllAtleta.errorBody());
         }
-        // llamada a una url que no existe
-        Response<List<Atleta>> responseUrlError = atletaService.getError().execute();
-        if (!responseUrlError.isSuccessful()) {
-            System.out.println("Status code: " + responseUrlError.code() + " Message error: " + responseUrlError.raw());
-        }
         //Post Atleta
         Atleta atleta = new Atleta();
         atleta.setNombre("Javier");
@@ -43,14 +38,14 @@ public class RestSynchronous {
             Atleta atletaResp = postAtleta.body();
             System.out.println("Status code: " + postAtleta.code() + System.lineSeparator() +
                     "POST player: " + atletaResp);
-            // Pedir un Jugador
+            // Get un Jugador
             Response<Atleta> responseOneAtleta = atletaService.getAtleta(atletaResp.getId()).execute();
             if (responseOneAtleta.isSuccessful()) {
                 System.out.println("GET one Athlete. Status code: " + responseOneAtleta.code() + " Athlete: " + responseOneAtleta.body());
             } else {
                 System.out.println("Status code: " + responseOneAtleta.code() + "Message error: " + responseOneAtleta.errorBody());
             }
-            // put
+            // put atleta(actualizar/modificar atleta)
             atletaResp.setNacionalidad("Spain");
             Response<Atleta> putAtleta = atletaService.updateAtleta(atletaResp).execute();
 
